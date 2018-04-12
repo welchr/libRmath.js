@@ -22,7 +22,7 @@ import {
   R_D_nonint_check
 } from '../common/_general';
 import { bd0 } from '../deviance';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { stirlerr } from '../stirling';
 
 const { log, log1p, round: R_forceint } = Math;
@@ -79,7 +79,7 @@ export function dbinom<T>(
   p: number,
   logX: boolean = false
 ): T {
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     /* NaNs propagated correctly */
     if (ISNAN(x) || ISNAN(n) || ISNAN(p)) return x + n + p;
 

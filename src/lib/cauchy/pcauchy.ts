@@ -14,7 +14,7 @@ import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_D_val, R_DT_0, R_DT_1 } from '../common/_general';
 
 import { R_D_Clog } from '../common/_general';
-import { map  } from '../r-func';
+import { multiplexer  } from '../r-func';
 import { atanpi } from '../trigonometry';
 
 
@@ -31,7 +31,7 @@ export function pcauchy<T>(
   logP = false
 ): T {
   
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     if (ISNAN(x) || ISNAN(location) || ISNAN(scale))
       return x + location + scale;
 

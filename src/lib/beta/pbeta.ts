@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_DT_0, R_DT_1 } from '../common/_general';
 import { NumberW, Toms708 } from '../common/toms708';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { isNaN: ISNAN, isFinite: R_FINITE } = Number;
 const { LN2: M_LN2, log } = Math;
@@ -94,7 +94,7 @@ export function pbeta<T>(
   lowerTail: boolean = true,
   logP: boolean = false
 ): T {
-  return map(q)(x => {
+  return multiplexer(q)(x => {
     printer_pbeta(
       'pbeta(q=%d, a=%d, b=%d, l.t=%s, ln=%s)',
       x,

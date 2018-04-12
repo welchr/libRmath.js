@@ -36,7 +36,7 @@ import { ML_ERR_return_NAN, R_D__0 } from '../common/_general';
 
 import * as debug from 'debug';
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 /* GNUv3 License
 
 Copyright (c) Jacob K. F. Bogers <jkfbogers@gmail.com>
@@ -54,7 +54,7 @@ const printer = debug('dexp');
 
 export function dexp<T>(x: T, scale: number, give_log: boolean = false): T {
   /* NaNs propagated correctly */
-  return map(x)(fx => {
+  return multiplexer(x)(fx => {
     if (ISNAN(fx) || ISNAN(scale)) {
       return NaN;
     }

@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_D_Lval, R_DT_0, R_DT_1 } from '../common/_general';
 import { R_DT_log } from '../exp/expm1';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { dhyper } from './dhyper';
 
 const { floor, round: R_forceint, log1p } = Math;
@@ -70,7 +70,7 @@ export function phyper<T>(
 ): T {
   /* Sample of  n balls from  NR red  and	 NB black ones;	 x are red */
 
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     let d: number;
     let pd: number;
     let lower_tail = lowerTail; //copy it gets changed

@@ -50,7 +50,7 @@ import {
 
 import { bd0 } from '../deviance'; 
 import { lgammafn } from '../gamma/lgamma_fn';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { stirlerr } from '../stirling';
 
 const { round: R_forceint, log, PI } = Math;
@@ -82,7 +82,7 @@ export function dpois(
   give_log: boolean = false
 ): number | number[] {
   
-  return map(_x)(x => {
+  return multiplexer(_x)(x => {
     if (ISNAN(x) || ISNAN(lambda)) {
       return x + lambda;
     }

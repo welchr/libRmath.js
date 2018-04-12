@@ -128,7 +128,7 @@
         "preinstall": "echo install",
         "prepare": "echo 'prepare'",
         "prepublish": "echo 'prepublish'",
-        "prepublishOnly": "echo prepublishOnly",
+        "prepublishOnly": "tsc",
         "prerestart": "echo prerestart",
         "preshrinkwrap": "echo preshrinkwrap",
         "prestart": "echo prestart",

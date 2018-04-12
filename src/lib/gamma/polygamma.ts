@@ -19,7 +19,7 @@ import {
   R_pow_di
 } from '../common/_general';
 import { NumberW } from '../common/toms708';
-import { map, multiplexer } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const printer = debug('dpsifn');
 
@@ -498,7 +498,7 @@ export function digamma(_x: number | number): number | number[] {
   let nz = new NumberW();
   let ierr = new NumberW();
 
-  return map(_x)(x => {
+  return multiplexer(_x)(x => {
     ans[0] = 0;
     nz.val = 0;
     ierr.val = 0;
@@ -518,7 +518,7 @@ export function trigamma(_x: number | number[]): number | number[] {
   let nz = new NumberW(0);
   let ierr = new NumberW(0);
 
-  return map(_x)(x => {
+  return multiplexer(_x)(x => {
     ans[0] = 0;
     nz.val = 0;
     ierr.val = 0;
@@ -536,7 +536,7 @@ export function tetragamma(_x: number | number[]): number | number[] {
   let ans = [0];
   let nz = new NumberW();
   let ierr = new NumberW();
-  return map(_x)(x => {
+  return multiplexer(_x)(x => {
     ans[0] = 0;
     nz.val = 0;
     ierr.val = 0;
@@ -554,7 +554,7 @@ export function pentagamma(_x: number): number {
   let ans = [0];
   let nz = new NumberW();
   let ierr = new NumberW();
-  return map(_x)(x => {
+  return multiplexer(_x)(x => {
     ans[0] = 0;
     nz.val = 0;
     ierr.val = 0;

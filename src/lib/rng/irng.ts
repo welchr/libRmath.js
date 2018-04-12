@@ -1,5 +1,5 @@
 
-import { map, seq } from '../r-func';
+import { multiplexer, seq } from '../r-func';
 import { IRNGType } from './irng-type';
 
 export type MessageType = 'INIT';
@@ -38,7 +38,7 @@ export abstract class IRNG {
   public abstract set seed(_seed: number[]);
   public unif_rand(n: number = 1): number | number[] {
     n = (!n || n < 0) ? 1 : n;
-    return map(seq()()(n))(() => this.internal_unif_rand());
+    return multiplexer(seq()()(n))(() => this.internal_unif_rand());
   }
 
   protected abstract internal_unif_rand(): number;

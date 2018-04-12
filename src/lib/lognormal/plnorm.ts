@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_DT_0 } from '../common/_general';
 import { pnorm5 as pnorm } from '../normal/pnorm';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { isNaN: ISNAN } = Number;
 const { log } = Math;
@@ -27,7 +27,7 @@ export function plnorm<T>(
   log_p: boolean = false
 ): T {
 
-  return map(x)(fx => {
+  return multiplexer(x)(fx => {
     if (ISNAN(fx) || ISNAN(meanlog) || ISNAN(sdlog))
       return fx + meanlog + sdlog;
 

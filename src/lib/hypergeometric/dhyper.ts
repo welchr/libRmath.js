@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 import * as debug from 'debug';
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 import {
   ML_ERR_return_NAN,
@@ -35,7 +35,7 @@ export function dhyper<T>(
   n: number,
   give_log: boolean = false
 ): T {
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     let p: number;
     let q: number;
     let p1: number;

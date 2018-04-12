@@ -15,7 +15,7 @@ import { ML_ERR_return_NAN, R_Q_P01_boundaries } from '../common/_general';
 
 import { R_Log1_Exp } from '../exp/expm1';
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const {
   isNaN: ISNAN,
@@ -34,7 +34,7 @@ export function qlogis<T>(
   lower_tail: boolean = true,
   log_p: boolean = false
 ): T {
-  return map(pp)(p => {
+  return multiplexer(pp)(p => {
     if (ISNAN(p) || ISNAN(location) || ISNAN(scale))
       return p + location + scale;
 

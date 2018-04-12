@@ -92,7 +92,7 @@ export function asArray(fn: (...rest: (any | any[])[]) => any) {
 
   return function(...rest: (any | any[])[]) {
     const ans = fn(...rest);
-    return Array.isArray(ans) ? ans : [ans];
+    return Array.isArray(ans) ? ans : ans === undefined || ans === null ? [] : [ans];
   };
 }
 
@@ -105,7 +105,8 @@ export { possibleScalar };
 
 function coerceToArray(o: any): { key: string | number, val: any }[] {
   if (o === null || o === undefined) {
-    throw new TypeError('Illegal argument excepton: input needs to NOT be "null" or "undefined".');
+    return [];
+    //throw new TypeError('Illegal argument excepton: input needs to NOT be "null" or "undefined".');
   }
   if (typeof o === 'number') {
     return [{ key: 0, val: o }] as any;

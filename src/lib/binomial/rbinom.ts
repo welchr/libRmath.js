@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_pow_di } from '../common/_general';
 
-import { map, seq } from '../r-func';
+import { multiplexer, seq } from '../r-func';
 import { IRNG } from '../rng/irng';
 import { qbinom } from './qbinom';
 
@@ -28,7 +28,7 @@ export function rbinom(
   pp: number,
   rng: IRNG
 ): number | number[] {
-  return map(sequence(N))(() => _rbinom(nin, pp, rng)) as any;
+  return multiplexer(sequence(N))(() => _rbinom(nin, pp, rng)) as any;
 }
 
 function _rbinom(nin: number, pp: number, rng: IRNG): number {

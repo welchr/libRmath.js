@@ -60,7 +60,7 @@ import {
 
 import { R_D_LExp, R_DT_qIv } from '../exp/expm1';
 import { qnorm } from '../normal/qnorm';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { tanpi } from '../trigonometry/cospi';
 import { dt } from './dt';
 import { pt } from './pt';
@@ -96,7 +96,7 @@ export function qt<T>(
   lowerTail: boolean,
   logP: boolean
 ): T {
-  return map(pp)(p => _qt(p, ndf, lowerTail, logP)) as any;
+  return multiplexer(pp)(p => _qt(p, ndf, lowerTail, logP)) as any;
 }
 
 function _qt(

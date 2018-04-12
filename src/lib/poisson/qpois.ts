@@ -46,7 +46,7 @@ import { qnorm } from '../normal/qnorm';
 
 import { R_DT_qIv } from '../exp/expm1'; 
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { max: fmax2, sqrt, floor, round: nearbyint } = Math;
 const {
@@ -87,7 +87,7 @@ export function qpois<T>(
   log_p: boolean = false
   //normal: INormal
 ): T {
-  return map(pp)(p => {
+  return multiplexer(pp)(p => {
     return _qpois(p, lambda, lower_tail, log_p /*, normal*/);
   }) as any;
 }

@@ -11,7 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 import * as debug from 'debug';
 import { ML_ERR_return_NAN } from '../common/_general';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { log, exp, abs: fabs } = Math;
 const { isNaN: ISNAN } = Number;
@@ -24,7 +24,7 @@ export function dlogis<T>(
   scale: number = 1,
   give_log: boolean = false
 ): T {
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     let e: number;
     let f: number;
 

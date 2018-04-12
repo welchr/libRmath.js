@@ -57,7 +57,7 @@ import {
 
 import { R_DT_val } from '../common/_general';
 import { lgammafn } from '../gamma/lgamma_fn';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { isNaN: ISNAN, isFinite: R_FINITE } = Number;
 const { exp, sqrt, log, LN2: M_LN2 } = Math;
@@ -71,9 +71,9 @@ export function ptukey<T>(
   df: number,
   lower_tail: boolean = true,
   log_p: boolean = false,
- // normal: INormal
+  // normal: INormal
 ): T {
-  return map(qq)(q =>
+  return multiplexer(qq)(q =>
     _ptukey(q, rr, cc, df, lower_tail, log_p)
   ) as any;
 }
@@ -264,11 +264,11 @@ export function _ptukey(
       const t1 =
         ihalfq < jj
           ? f2lf +
-            f21 * log(twa1 + xlegq[j] * ulen) -
-            (xlegq[j] * ulen + twa1) * ff4
+          f21 * log(twa1 + xlegq[j] * ulen) -
+          (xlegq[j] * ulen + twa1) * ff4
           : f2lf +
-            f21 * log(twa1 - xlegq[j] * ulen) +
-            (xlegq[j] * ulen - twa1) * ff4;
+          f21 * log(twa1 - xlegq[j] * ulen) +
+          (xlegq[j] * ulen - twa1) * ff4;
 
       /* if exp(t1) < 9e-14, then doesn't contribute to integral */
       if (t1 >= eps1) {

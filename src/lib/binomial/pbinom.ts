@@ -18,7 +18,7 @@ import {
   R_DT_1,
   R_nonint
 } from '../common/_general';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const printer = debug('pbinom');
 const { floor, round: R_forceint } = Math;
@@ -31,7 +31,7 @@ export function pbinom<T>(
   lowerTail: boolean = true,
   logP: boolean = false
 ): T {
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     if (ISNAN(x) || ISNAN(n) || ISNAN(p)) return NaN;
     if (!R_FINITE(n) || !R_FINITE(p)) {
       return ML_ERR_return_NAN(printer);

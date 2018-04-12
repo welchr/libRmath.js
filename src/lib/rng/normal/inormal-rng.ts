@@ -1,5 +1,5 @@
 import { IRNG } from '../';
-import { map, seq } from '../../r-func';
+import { multiplexer, seq } from '../../r-func';
 
 export abstract class IRNGNormal {
   protected rng: IRNG;
@@ -12,7 +12,7 @@ export abstract class IRNGNormal {
 
   public norm_rand(n: number = 1): number|number[]{
     n = !n || n < 0 ? 1 : n;
-    return map(seq()()(n))(() => this.internal_norm_rand());
+    return multiplexer(seq()()(n))(() => this.internal_norm_rand());
   } 
 
   protected abstract internal_norm_rand(): number;

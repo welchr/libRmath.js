@@ -39,19 +39,19 @@
 
  */
 
- 
+
 import * as debug from 'debug';
 
 import { ML_ERR_return_NAN, R_DT_0, R_DT_1, R_DT_val } from '../common/_general';
 import { internal_choose } from '../common/choose';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 import { WilcoxonCache } from './WilcoxonCache';
 
 import { cwilcox } from './cwilcox';
 
-const { round:R_forceint, floor} = Math;
-const { isNaN:ISNAN, isFinite:R_FINITE } = Number;
+const { round: R_forceint, floor } = Math;
+const { isNaN: ISNAN, isFinite: R_FINITE } = Number;
 
 const printer_pwilcox = debug('pwilcox');
 export function pwilcox<T>(
@@ -63,10 +63,10 @@ export function pwilcox<T>(
 ): T {
   m = R_forceint(m);
   n = R_forceint(n);
- 
 
-  return map(qq)(q => {
-    
+
+  return multiplexer(qq)(q => {
+
     const w = new WilcoxonCache();
 
     let lower_tail = lowerTail;
@@ -81,7 +81,7 @@ export function pwilcox<T>(
     if (q >= m * n) return R_DT_1(lower_tail, logP);
 
     //let mm = m;
-   // let nn = n;
+    // let nn = n;
     //w_init_maybe(mm, nn);
     let c = internal_choose(m + n, n);
     let p = 0;

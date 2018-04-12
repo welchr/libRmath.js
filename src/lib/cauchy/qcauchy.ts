@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_Q_P01_check } from '../common/_general';
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { tanpi } from '../trigonometry/tanpi';
 
 const { expm1, exp } = Math;
@@ -32,7 +32,7 @@ export function qcauchy<T>(
   lowerTail = true,
   logP = false
 ): T {
-  return map(pp)(p => {
+  return multiplexer(pp)(p => {
     if (ISNAN(p) || ISNAN(location) || ISNAN(scale)) return NaN;
     let lower_tail = lowerTail;
 

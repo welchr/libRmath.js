@@ -27,7 +27,7 @@ import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_Q_P01_boundaries } from '../common/_general';
 import { R_DT_qIv } from '../exp/expm1';
 import { qnorm } from '../normal/qnorm';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { pnt } from './pnt';
 import { qt } from './qt';
 
@@ -49,7 +49,7 @@ export function qnt<T>(
   lowerTail: boolean,
   logP: boolean
 ): T {
-  return map(pp)(p => _qnt(p, df, ncp, lowerTail, logP)) as any;
+  return multiplexer(pp)(p => _qnt(p, df, ncp, lowerTail, logP)) as any;
 }
 
 function _qnt(

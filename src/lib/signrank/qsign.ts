@@ -7,7 +7,7 @@ import {
 } from '../common/_general';
 import { R_DT_qIv } from '../exp/expm1';
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { csignrank } from './signrank';
 
 const { round, trunc, LN2: M_LN2, exp } = Math;
@@ -25,7 +25,7 @@ export function qsignrank<T>(
   const c = trunc(u / 2);
   const w = new Array(c + 1).fill(0);
 
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     if (ISNAN(x) || ISNAN(n)) {
       return NaN;
     }

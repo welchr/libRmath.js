@@ -29,7 +29,7 @@ import * as debug from 'debug';
 const printer = debug('punif');
 
 import { ML_ERR_return_NAN, R_D_val, R_DT_0, R_DT_1 } from '../common/_general';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { isNaN: ISNAN, isFinite: R_FINITE } = Number;
 
@@ -40,7 +40,7 @@ export function punif(
   lowerTail: boolean = true,
   logP: boolean = false
 ): number | number[] {
-  return map(q)(fx => {
+  return multiplexer(q)(fx => {
     if (ISNAN(fx) || ISNAN(min) || ISNAN(max)) {
       return fx + min + max;
     }
@@ -62,5 +62,5 @@ export function punif(
       return R_D_val(logP, (fx - min) / (max - min));
     }
     return R_D_val(logP, (max - fx) / (max - min));
-  }) as any; 
+  }) as any;
 }

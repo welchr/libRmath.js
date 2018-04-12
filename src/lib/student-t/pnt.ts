@@ -66,7 +66,7 @@ import {
 } from '../common/_general';
 import { lgammafn } from '../gamma/lgamma_fn';
 import { pnorm5 as pnorm } from '../normal/pnorm';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { pt } from './pt';
 
 const { isFinite: R_FINITE, EPSILON: DBL_EPSILON } = Number;
@@ -82,7 +82,7 @@ export function pnt<T>(
   lowerTail: boolean = true,
   logP: boolean = false
 ): T {
-  return map(tt)(t =>
+  return multiplexer(tt)(t =>
     _pnt(t, df, ncp, lowerTail, logP /*, normal*/)
   ) as any;
 }

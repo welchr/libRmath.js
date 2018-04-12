@@ -10,11 +10,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 */
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { lgammafn_sign } from './lgammafn_sign';
 
 export function lgammafn<T>(x: T): T {
-  return map(x)(fx => {
+  return multiplexer(x)(fx => {
     return lgammafn_sign(fx);
   }) as any;
 }

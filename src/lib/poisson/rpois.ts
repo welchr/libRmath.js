@@ -48,7 +48,7 @@ import {
 } from '../common/_general';
 
 import { exp_rand } from '../exp/sexp';
-import { map, seq } from '../r-func';
+import { multiplexer, seq } from '../r-func';
 import { IRNGNormal } from '../rng/normal';
 import { fsign } from '../signrank/fsign';
 
@@ -74,7 +74,7 @@ export function rpois(
   mu: number,
   rng: IRNGNormal
 ): number | number[] {
-  return map(sequence(N))(() => _rpois(mu, rng)) as any;
+  return multiplexer(sequence(N))(() => _rpois(mu, rng)) as any;
 }
 
 const printer_rpois = debug('_rpois');

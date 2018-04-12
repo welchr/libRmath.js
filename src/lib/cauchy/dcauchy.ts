@@ -12,7 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN } from '../common/_general';
 
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { isNaN: ISNAN } = Number;
 const { PI: M_PI, log } = Math;
@@ -24,7 +24,7 @@ export function dcauchy<T>(
   scale = 1,
   giveLog = false
 ): T {
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     let y: number;
     /* NaNs propagated correctly */
     if (ISNAN(x) || ISNAN(location) || ISNAN(scale)) {

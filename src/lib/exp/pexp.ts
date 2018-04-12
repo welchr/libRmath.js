@@ -11,7 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 import { ML_ERR_return_NAN, R_D_exp, R_DT_0 } from '../common/_general';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 import * as debug from 'debug';
 import { R_Log1_Exp } from './expm1';
@@ -26,7 +26,7 @@ export function pexp<T>(
   lower_tail: boolean,
   log_p: boolean
 ): T {
-  return map(q)(fx => {
+  return multiplexer(q)(fx => {
     if (ISNAN(fx) || ISNAN(scale)) return fx + scale;
     if (scale < 0) {
       return ML_ERR_return_NAN(printer);

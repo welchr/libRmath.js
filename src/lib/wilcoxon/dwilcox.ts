@@ -43,7 +43,7 @@ import * as debug from 'debug';
 
 import { ML_ERR_return_NAN, R_D__0 } from '../common/_general';
 import { internal_choose, internal_lchoose } from '../common/choose';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { cwilcox } from './cwilcox';
 import { WilcoxonCache } from './WilcoxonCache';
 
@@ -65,26 +65,26 @@ export function dwilcox<T>(
   n = R_forceint(n);
 
   //const nm = m * n;
- 
-  return map(xx)(x => {
-   
+
+  return multiplexer(xx)(x => {
+
     const w = new WilcoxonCache();
     //#ifdef IEEE_754
     /* NaNs propagated correctly */
 
     if (ISNAN(x) || ISNAN(m) || ISNAN(n)) {
-     // console.log(`1. x:${x}, m:${m}, n:${n}`);
+      // console.log(`1. x:${x}, m:${m}, n:${n}`);
       return (x + m + n);
     }
     //#endif
 
     if (m <= 0 || n <= 0) {
-     // console.log(`2. x:${x}, m:${m}, n:${n}`);
+      // console.log(`2. x:${x}, m:${m}, n:${n}`);
       return ML_ERR_return_NAN(printer_dwilcox);
     }
 
     if (fabs(x - R_forceint(x)) > 1e-7) {
-     // console.log(`3. x:${x}, m:${m}, n:${n}`);
+      // console.log(`3. x:${x}, m:${m}, n:${n}`);
       return R_D__0(giveLog);
     }
     x = R_forceint(x);
@@ -94,7 +94,7 @@ export function dwilcox<T>(
     //const w = initw(m, n);
     //console.log(`0. special: ${w[4][4].length}`);
     //const c1 = cwilcox(x, m, n, w);
-    
+
     //console.log(`4. c1:${c1} <- x:${x}, m:${m}, n:${n}`);
     return giveLog
       ? log(cwilcox(x, m, n, w)) - internal_lchoose(m + n, n)

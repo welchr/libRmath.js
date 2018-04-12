@@ -90,7 +90,7 @@ function qinv(p: number, c: number, v: number): number {
   t =
     yi +
     ((((yi * p4 + p3) * yi + p2) * yi + p1) * yi + p0) /
-      ((((yi * q4 + q3) * yi + q2) * yi + q1) * yi + q0);
+    ((((yi * q4 + q3) * yi + q2) * yi + q1) * yi + q0);
   if (v < vmax) t += (t * t * t + t) / v / 4.0;
   q = c1 - c2 * t;
   if (v < vmax) q += -c3 / v + c4 * t / v;
@@ -127,7 +127,7 @@ import * as debug from 'debug';
 import { ME, ML_ERR_return_NAN, ML_ERROR, R_Q_P01_boundaries } from '../common/_general';
 
 import { R_DT_qIv } from '../exp/expm1';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { _ptukey } from './ptukey';
 
 const { isNaN: ISNAN, POSITIVE_INFINITY: ML_POSINF } = Number;
@@ -149,7 +149,7 @@ export function qtukey<T>(
   lower_tail: boolean = true, //lower.tail
   log_p: boolean = false //log.p
 ): T {
-  return map(pp)(p =>
+  return multiplexer(pp)(p =>
     _qtukey(p, rr, cc, df, lower_tail, log_p)
   ) as any;
 }

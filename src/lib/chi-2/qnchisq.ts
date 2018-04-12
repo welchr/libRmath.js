@@ -21,7 +21,7 @@ import {
 } from '../common/_general';
 
 import { qchisq } from '../chi-2/qchisq';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 import { pnchisq_raw } from './pnchisq';
 
 const { expm1, min: fmin2 } = Math;
@@ -43,7 +43,7 @@ export function qnchisq<T>(
   lowerTail = true,
   logP = false
 ): T {
-  return map(pp)(p => _qnchisq(p, df, ncp, lowerTail, logP)) as any;
+  return multiplexer(pp)(p => _qnchisq(p, df, ncp, lowerTail, logP)) as any;
 }
 
 function _qnchisq(

@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 
 import { ML_ERR_return_NAN } from '../common/_general';
-import { map, seq } from '../r-func';
+import { multiplexer, seq } from '../r-func';
 import { IRNG } from '../rng';
 
 const { log } = Math;
@@ -27,7 +27,7 @@ export function rlogis(
   scale: number = 1,
   rng: IRNG
 ): number | number[] {
-  return map(sequence(N))(() => {
+  return multiplexer(sequence(N))(() => {
     if (ISNAN(location) || !R_FINITE(scale)) {
       return ML_ERR_return_NAN(printer_rlogis);
     }

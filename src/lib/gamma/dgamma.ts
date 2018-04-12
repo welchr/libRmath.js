@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 import * as debug from 'debug';
 import { ML_ERR_return_NAN, R_D__0 } from '../common/_general';
 import { dpois_raw } from '../poisson/dpois';
-import { map } from '../r-func';
+import { multiplexer } from '../r-func';
 
 const { log } = Math;
 const { isNaN: ISNAN } = Number;
@@ -27,7 +27,7 @@ export function dgamma<T>(
   scale: number,
   aslog: boolean = false
 ): T {
-  return map(xx)(x => {
+  return multiplexer(xx)(x => {
     let pr: number;
 
     if (ISNAN(x) || ISNAN(shape) || ISNAN(scale)) return x + shape + scale;
